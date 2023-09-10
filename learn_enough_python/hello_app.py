@@ -327,3 +327,89 @@ print("elements:", elements)
 # combine the two dictionaries permanently
 elements_i_have.update(rare_earth_elements)
 print("elements_i_have:", elements_i_have)
+
+#     ▄▄▄▄                                              ██
+#    ██▀▀▀                                   ██         ▀▀
+#  ███████   ██    ██  ██▄████▄   ▄█████▄  ███████    ████      ▄████▄   ██▄████▄  ▄▄█████▄
+#    ██      ██    ██  ██▀   ██  ██▀    ▀    ██         ██     ██▀  ▀██  ██▀   ██  ██▄▄▄▄ ▀
+#    ██      ██    ██  ██    ██  ██          ██         ██     ██    ██  ██    ██   ▀▀▀▀██▄
+#    ██      ██▄▄▄███  ██    ██  ▀██▄▄▄▄█    ██▄▄▄   ▄▄▄██▄▄▄  ▀██▄▄██▀  ██    ██  █▄▄▄▄▄██
+#    ▀▀       ▀▀▀▀ ▀▀  ▀▀    ▀▀    ▀▀▀▀▀      ▀▀▀▀   ▀▀▀▀▀▀▀▀    ▀▀▀▀    ▀▀    ▀▀   ▀▀▀▀▀▀
+# a function that looks for a key in a hash and returns the value if it exists. if not, return a random value from an array
+
+import random
+
+
+def get_food(preferred_cuisine, substitutions_okay):
+    # a dictionary where the keys are cuisines and the values are lists of foods from those cuisines
+    hash = {
+        "italian": ["pizza", "pasta", "gelato"],
+        "mexican": ["tacos", "burritos", "enchiladas"],
+        "indian": ["curry", "naan", "samosa"],
+        "american": ["hamburger", "hot dog", "french fries"],
+        "martian": ["space pizza", "space tacos", "space samosa"],
+    }
+
+    if preferred_cuisine in hash:
+        # return a random element from the list at that key
+        return random.choice(hash[preferred_cuisine])
+    else:
+        if substitutions_okay:
+            # return a random element from the list of all foods
+            return random.choice([food for foods in hash.values() for food in foods])
+        else:
+            return None
+
+
+print(get_food("italian", True))
+print(get_food("russian", True))
+print(get_food("canadian", False))
+
+# demonstrate that functions are first-class objects
+
+
+# a function that takes a function as an argument
+def call_function(function):
+    function()
+
+
+def say_hello():
+    print("hello")
+
+
+call_function(say_hello)
+
+
+# a function that returns a function
+def return_function():
+    def function():
+        print("i'm a function")
+
+    return function
+
+
+foo = return_function()
+foo()
+
+
+# a function that takes a variable number of arguments
+def print_args(*args):
+    print("args:", args)
+
+
+# pass it a list of bodily organs
+print_args("heart", "liver", "spleen", "pancreas")
+
+
+# a function that takes a variable number of keyword arguments
+def print_kwargs(**kwargs):
+    print("kwargs:", kwargs)
+
+
+# pass it a list of bodily organs and their functions
+print_kwargs(
+    heart="pump blood",
+    liver="detoxify blood",
+    spleen="filter blood",
+    pancreas="secrete insulin",
+)
